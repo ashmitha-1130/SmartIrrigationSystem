@@ -1,0 +1,24 @@
+const int relayPin = 26;
+const int moisturePin = 14;
+const int moistureThreshold = 2000;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, LOW);
+}
+
+void loop() {
+  int moistureCount = analogRead(moisturePin);
+  Serial.print("Moisture Level: ");
+  Serial.println(moistureCount);
+
+  if (moistureCount < moistureThreshold) {
+    digitalWrite(relayPin, HIGH);
+    Serial.println("Soil is dry, turn on the water pump.");
+  } else {
+    digitalWrite(relayPin, LOW);
+    Serial.println("Soil is wet, turn off the water pump.");
+  }
+  delay(1000);
+}
